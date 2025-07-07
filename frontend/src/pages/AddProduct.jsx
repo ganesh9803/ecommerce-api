@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import API from '../../api';
 
+
 const AddProduct = () => {
   const [form, setForm] = useState({
     name: '',
@@ -8,30 +9,17 @@ const AddProduct = () => {
     price: '',
     category: '',
     stockQuantity: '',
-    imageURL: '',
+    imageURL: ''
   });
 
   const addProduct = async () => {
-    try {
-      await API.post('/products', form);
-      alert('Product added successfully!');
-      setForm({
-        name: '',
-        description: '',
-        price: '',
-        category: '',
-        stockQuantity: '',
-        imageURL: '',
-      });
-    } catch (err) {
-      console.error('Add product error:', err);
-      alert('Failed to add product');
-    }
+    await API.post('/products', form);
+    alert('Product added');
   };
 
   return (
     <div className="p-6 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Add Product (Admin)</h2>
+      <h2 className="text-xl font-bold mb-4">Add Product</h2>
       {Object.entries(form).map(([key, value]) => (
         <input
           key={key}
@@ -41,9 +29,7 @@ const AddProduct = () => {
           className="w-full p-2 border mb-2"
         />
       ))}
-      <button onClick={addProduct} className="bg-blue-600 text-white px-4 py-2 rounded w-full">
-        Submit
-      </button>
+      <button onClick={addProduct} className="bg-blue-600 text-white px-4 py-2 w-full">Submit</button>
     </div>
   );
 };
