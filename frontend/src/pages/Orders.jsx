@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import API from '../../api';
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    axios
-      .get('http://localhost:5000/api/orders', {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+    API.get('/orders')
       .then((res) => setOrders(res.data))
-      .catch((err) => console.error('Failed to fetch orders:', err));
+      .catch((err) => console.error('Error fetching orders:', err));
   }, []);
 
   return (
